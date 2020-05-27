@@ -1,3 +1,3 @@
-module github.com/bitgamma/subs-rename
+module github.com/choppu/subs-rename
 
 go 1.14

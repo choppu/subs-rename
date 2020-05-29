@@ -23,6 +23,7 @@ func main() {
 
 	if len(args) < 3 {
 		fmt.Println("Error: some arguments are missing")
+		os.Exit(1)
 	}
 
 	subDir := args[2]

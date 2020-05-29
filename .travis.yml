@@ -15,7 +15,7 @@ script:
   - diff -u <(echo -n) <(gofmt -d .)
   - go vet $(go list ./... | grep -v /vendor/)
   - go test -v -race ./...
-  - gox -os="linux darwin windows" -arch="amd64" -output="subs-rename.." -ldflags "-X main.Rev=`git rev-parse --short HEAD`" -verbose ./...
+  - gox -os="linux darwin windows" -arch="amd64" -output="{{.Dir}}-$TRAVIS_TAG-{{.OS}}-{{.Arch}}"
 
 deploy:
   provider: releases
@@ -23,9 +23,9 @@ deploy:
     secure: "dwjvFsVurwhoLtR5VbJJWtUc1WImrfVSkSHUT4nhd1ORgtArfiVCI0NxDM7YdiMxiYDvWKWVHJ4FnnXLaxC6PGTXZY7+qZ6AX0XMqA78PdujoWBc8FHUEkeRBx51I9HykVvHcTzwkS+IVcR+ZjoCtI5XELbUwQY/qAz74qNLUsl3BMKt6V/zz/Cq0jTGF5opKirEsHB2rcIt5hNzhIYyI9ubvIX+PdVhw8sSmDuqjHuiBNpG7PbiSVg9FWDHFqVTp+rR4nCcePDF3emqVEYiyBbLuCP/CLsgEuLlDOwxt0NzmlXJrkGK/FenSJK5xS4rB1HNQ1XHzFmgWgN2g3FO5DuxSE/deOKDCUgR0RNDkNgDB9D7h3DisUa5m6z/fIRIqdSyCt2WeGkbwAnNfMwIy6mIaDxOA8ELOq/LebExRGsCtvfDqvZDv6hbQzXxYa8K4MS6MwFv6ND9KWhaoNg++qMH9EP+JBnMPEgDfiVgOFlm0ywmZYmRIz0iSh5n06bfKyg2+l18FCqazxa+QRsKXYVWF/LwcSihjdQGOjMFoNFYP677qPXeVtgh/8p71Ts6OhIHvz/B7KQosVA4V3zV3ngW0+SlTM4igLkD2fENg5TZDQGbOXlKXxdnjy9jehaGQqKJNLse6ntGqlUbDBhKHclxmPidmgoVJiesosv+9kk="
      
   file:
-    - subs-rename.windows.amd64.exe
-    - subs-rename.darwin.amd64
-    - subs-rename.linux.amd64
+    - subs-rename-$TRAVIS_TAG-windows-amd64.exe
+    - subs-rename-$TRAVIS_TAG-darwin-amd64
+    - subs-rename-$TRAVIS_TAG-linux-amd64
   on:
     repo: choppu/subs-rename
     tags: true
